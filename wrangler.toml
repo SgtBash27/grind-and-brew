@@ -1,3 +1,4 @@
 name = "grind-and-brew"
 pages_build_output_dir = "./_site"
 compatibility_date = "2026-08-16"
+
