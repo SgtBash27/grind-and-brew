@@ -14,9 +14,10 @@ dependencies (deliberate — see "Why no framework" below).
   and Article structured data (JSON-LD).
 - **Before deploying, set `SITE_URL` to the real domain** — either export it as an
   env var when building (`SITE_URL=https://yourdomain.com node build.js`) or add it
-  as a Vercel environment variable. Every canonical tag and schema block is wrong
-  until this is set to the real domain — worth double-checking this is right
-  before the first deploy, since a wrong canonical tag is worse than none.
+  as an environment variable in your hosting provider's dashboard (Cloudflare
+  Pages: Settings → Environment variables). Every canonical tag and schema block
+  is wrong until this is set to the real domain — worth double-checking this is
+  right before the first deploy, since a wrong canonical tag is worse than none.
 - The weekly content-generation workflow (`.github/workflows/generate-article.yml`)
   — pulls the next topic from `topics-queue.json`, calls the Anthropic API to draft
   it in the site's house style, verifies the build still succeeds, and commits the
@@ -51,24 +52,39 @@ line, not a preference. Here's exactly what's left, in the order to do it:
 
 1. **GitHub account + repo.** If you don't have one: github.com/signup (free).
    Create a new empty repository, then push this folder to it:
-   ```
    cd content-site
-   git init && git add -A && git commit -m "Initial site"
-   git branch -M main
-   git remote add origin https://github.com/<you>/<repo-name>.git
-   git push -u origin main
-   ```
+git init && git add -A && git commit -m "Initial site"
+git branch -M main
+git remote add origin https://github.com/<you>/<repo-name>.git
+git push -u origin main
 2. **Turn on write access for the automation.** In the repo: Settings → Actions →
    General → "Workflow permissions" → select "Read and write permissions". Without
    this, the weekly article workflow can generate content but can't commit it.
 3. **Anthropic API key**, for the content-generation workflow: console.anthropic.com
    → API Keys → Create Key. Then in the repo: Settings → Secrets and variables →
    Actions → New repository secret → name it `ANTHROPIC_API_KEY`.
-4. **Vercel account**, to make the site actually live: vercel.com/signup → "Import
-   Project" → pick this GitHub repo. Vercel reads `vercel.json` automatically and
-   redeploys on every push to `main` — including the weekly auto-commits. You get
-   a free `*.vercel.app` URL immediately; a custom domain (~£10/year from any
-   registrar) can be attached later once you're happy with it.
+4. **Cloudflare Pages account**, to make the site actually live: dash.cloudflare.com/sign-up
+   (free, no card required) → **Workers & Pages** → **Create** → **Pages** →
+   **Connect to Git** → pick this GitHub repo. When it asks for build settings:
+   - Framework preset: **None**
+   - Build command: `node build.js`
+   - Build output directory: `_site`
+
+   (This repo also has a `wrangler.toml` with `pages_build_output_dir` set, which
+   Cloudflare Pages may pick up automatically — but it's still worth confirming
+   the three settings above match in the dashboard on first setup.)
+
+   Click **Save and Deploy**. You'll get a free `<project-name>.pages.dev` URL —
+   note the exact URL once it's live, since `SITE_URL` (see above) has to be set
+   to match it *before* rebuilding, or every canonical tag will point at the
+   wrong place. A custom domain can be attached later for free once you're happy
+   with it (Cloudflare doesn't charge extra for custom domains on the free plan).
+
+   **Why not Vercel:** Vercel's free "Hobby" plan explicitly restricts usage to
+   non-commercial personal projects — their own fair use docs name "affiliate
+   linking is the primary purpose of the site" as a disqualifying example. Since
+   that's exactly what this site is, Hobby isn't the right fit once affiliate
+   links are live; Cloudflare Pages' free tier carries no such restriction.
 5. **Monetization account(s), whenever you're ready to actually earn from this**:
    Amazon Associates (affiliateprogram.amazon.co.uk) and/or Google AdSense
    (adsense.google.com). Both need your bank/tax details for payouts — again,
@@ -77,12 +93,7 @@ line, not a preference. Here's exactly what's left, in the order to do it:
 
 Everything after that — new articles, builds, deploys — runs on its own weekly,
 with no further input needed from you. You'll still want to skim new articles
-occasionally and glance at Vercel/AdSense dashboards, but the loop doesn't need
-you to function.
+occasionally and glance at the Cloudflare/AdSense dashboards, but the loop
+doesn't need you to function.
 
 ## Local commands
-
-```
-node build.js          # build the site to _site/
-node scripts/generate-article.js   # requires ANTHROPIC_API_KEY env var set
-```
