@@ -1,0 +1,29 @@
+{
+  "_comment": "Planned articles, in priority order. The generate-article workflow pops the first 'pending' entry each run, writes it, and marks it 'published'. Edit this list any time to steer what gets written next — add new topics at the point in the list where they should be prioritized.",
+  "topics": [
+    {
+      "slug": "water-quality-espresso",
+      "title": "Why Your Tap Water Might Be Ruining Your Espresso",
+      "brief": "Explain how water hardness/mineral content affects extraction and machine scale buildup, and give practical, low-effort fixes (filter jugs, remineralized bottled water) without recommending unnecessary expensive filtration systems for casual home use.",
+      "status": "pending"
+    },
+    {
+      "slug": "milk-steaming-basics",
+      "title": "Steaming Milk Without a Barista Course: What Actually Matters",
+      "brief": "Explain the two things that actually determine milk texture (air introduction stage vs. texturing stage) in plain terms, common mistakes, and why pitcher size and milk temperature matter more than people think.",
+      "status": "pending"
+    },
+    {
+      "slug": "descaling-maintenance-schedule",
+      "title": "The Espresso Machine Maintenance Schedule Nobody Tells You About",
+      "brief": "A realistic, evidence-based maintenance cadence (backflushing, descaling, gasket checks) tied to water hardness and usage frequency, not generic manufacturer boilerplate.",
+      "status": "pending"
+    },
+    {
+      "slug": "pre-ground-vs-whole-bean",
+      "title": "Is Pre-Ground Coffee Ever Fine for Espresso?",
+      "brief": "Honest answer about staling timelines after grinding, when pre-ground is genuinely acceptable (never for espresso specifically, due to surface-area/staling rate) vs when it's fine, without being needlessly snobbish.",
+      "status": "pending"
+    }
+  ]
+}

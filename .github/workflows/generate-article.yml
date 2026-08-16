@@ -1,0 +1,38 @@
+name: Generate weekly article
+
+on:
+  schedule:
+    # Every Monday 08:00 UTC. GitHub's schedule trigger is best-effort, not
+    # exact-to-the-minute — that's normal and not a sign anything is broken.
+    - cron: "0 8 * * 1"
+  workflow_dispatch: {} # lets you trigger a run manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate next article
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-article.js
+
+      - name: Verify the site still builds
+        run: node build.js
+
+      - name: Commit and push if anything changed
+        run: |
+          git config user.name "grind-and-brew-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add src/articles topics-queue.json
+          git diff --cached --quiet && echo "No changes to commit." && exit 0
+          git commit -m "Auto-publish weekly article"
+          git push
