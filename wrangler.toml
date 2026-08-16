@@ -2,3 +2,8 @@ name = "grind-and-brew"
 pages_build_output_dir = "./_site"
 compatibility_date = "2026-08-16"
 
+# Cloudflare quirk: once this file exists, Cloudflare stops reading plain
+# (non-secret) variables set via the dashboard and expects them defined here
+# instead — a dashboard-set SITE_URL was silently ignored until this was added.
+[vars]
+SITE_URL = "https://grind-and-brew.pages.dev"
