@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="google-site-verification" content="VNhGAItiufe32LkaggrH-mVm4XWDn0oHB8O8ckjvS0E" />
+  <meta name="google-site-verification" content="VNhGAItiufe32LkaggrH-mVm4XWDn0oHB8O8ckjvS0E" />
   <title>{{title}} | Grind &amp; Brew</title>
   <meta name="description" content="{{description}}">
   <link rel="canonical" href="{{canonical}}">
@@ -16,19 +16,51 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="/">Grind &amp; Brew</a>
-    <nav>
-      <a href="/">Guides</a>
-      <a href="/about/">About</a>
-      <a href="/disclosure/">Disclosure</a>
-    </nav>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
+    <div class="header-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <ellipse cx="12" cy="12" rx="8.5" ry="10.5" transform="rotate(-18 12 12)" fill="#fff" fill-opacity="0.92"/>
+            <path d="M12.5 3.2C9.2 7.6 9.4 16.6 12.8 20.8" stroke="#8a5228" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+          </svg>
+        </span>
+        Grind &amp; Brew
+      </a>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label>
+      <nav>
+        <a href="/">Guides</a>
+        <a href="/about/">About</a>
+        <a href="/disclosure/">Disclosure</a>
+      </nav>
+    </div>
   </header>
   <main>
     {{content}}
   </main>
   <footer class="site-footer">
-    <p>Grind &amp; Brew is a small, independent site. Some links are affiliate links — see our <a href="/disclosure/">disclosure</a> for how that works. Prices and product availability change; always check the retailer before buying.</p>
-    <p>&copy; 2026 Grind &amp; Brew.</p>
+    <div class="trust-inner">
+      <div class="trust-item">
+        <span class="trust-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke="#fff" stroke-width="1.6"/></svg></span>
+        <div><h3>Independent</h3><p>No sponsorships. No agenda.</p></div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/></svg></span>
+        <div><h3>Evidence-based</h3><p>Practical advice grounded in the actual mechanism, not vibes.</p></div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M12 3v18" stroke="#fff" stroke-width="1.6"/></svg></span>
+        <div><h3>Built for home</h3><p>Real-world advice for real kitchens, not competition rigs.</p></div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="#fff" stroke-width="1.6"/></svg></span>
+        <div><h3>Transparent</h3><p>Honest about what works, and what doesn't.</p></div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <p>Grind &amp; Brew is a small, independent site. Some links are affiliate links — see our <a href="/disclosure/">disclosure</a> for how that works. Prices and product availability change; always check the retailer before buying.</p>
+      <p>&copy; 2026 Grind &amp; Brew.</p>
+    </div>
   </footer>
 </body>
 </html>
