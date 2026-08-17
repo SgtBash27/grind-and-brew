@@ -16,7 +16,12 @@ dependencies (deliberate — see "Why no framework" below).
   and Article structured data (JSON-LD).
 - Article `date` is the real first-publication date. Add a separate `updated`
   field only after a substantive review; the page and structured data will then
-  show that verified update date.
+  show that verified update date. The build rejects missing or malformed guide
+  dates, rejects an `updated` date earlier than publication, and includes guide
+  review dates as sitemap `lastmod` values.
+- Product cards require a name, dated price check, balanced pros and limitations,
+  verdict and secure source link. A guide must state its evidence method and must
+  never convert third-party testing into a claim that Grind & Brew tested it.
 - **Before deploying, set `SITE_URL` to the real domain** — either export it as an
   env var when building (`SITE_URL=https://yourdomain.com node build.js`) or add it
   as an environment variable in your hosting provider's dashboard (Cloudflare

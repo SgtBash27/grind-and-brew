@@ -3,6 +3,7 @@ layout: base.njk
 title: "Best Espresso Grinders Under £200 in the UK"
 description: "Three genuinely espresso-capable grinders under £200, compared using manufacturer specifications, current UK prices and independent hands-on testing."
 date: 2026-08-17
+category: Buying Guides
 permalink: /guides/best-espresso-grinders-under-200-uk/
 ---
 
@@ -34,8 +35,8 @@ checked: 17 August 2026
 verdict: A tidy, attractive all-rounder for someone who weighs each dose and regularly switches between espresso and filter.
 pros: Designed for single dosing|40mm conical burrs with 41-plus settings|Anti-static system and compact footprint
 cons: Inner micro-adjustment is hidden beneath the hopper|Adjustment system is less intuitive than the Baratza|UK price and stock vary by retailer
-url: https://fellowproducts.com/products/opus-coffee-grinder
-cta: View at Fellow
+url: https://www.selfridges.com/GB/en/product/fellow-opus-conical-burr-all-purpose-coffee-grinder_R04463999/
+cta: View current UK listing
 :::
 
 Why choose it: Fellow specifies 40mm conical burrs, 41-plus settings, anti-static technology and a 110g load bin, and explicitly rates the Opus from espresso through cold brew. In a week-long hands-on review, Forbes Vetted found it consistent across espresso and drip and easy to switch between brew styles, but did not position it as café-level espresso precision. The important caveat is the adjustment design: finer changes use a second ring beneath the hopper, so keeping track of a setting is less straightforward than turning one numbered collar.
@@ -80,6 +81,7 @@ For most buyers, start with the Encore ESP. The recommendation is not based on a
 - [Baratza Encore ESP manual](https://assets.breville.com/ZCG495/manual-encoreesp-v1-0-en-010923.pdf)
 - [CoffeeGeek hands-on Encore ESP review and comparative testing](https://coffeegeek.com/reviews/fullreview/baratza-encore-esp-grinder/)
 - [Fellow Opus specifications](https://help.fellowproducts.com/hc/en-us/articles/12697501813403-What-are-the-differences-between-Opus-and-Ode)
+- [Current UK price and availability checked at Selfridges](https://www.selfridges.com/GB/en/product/fellow-opus-conical-burr-all-purpose-coffee-grinder_R04463999/)
 - [Forbes Vetted week-long Fellow Opus test](https://www.forbes.com/sites/forbes-personal-shopper/article/fellow-opus-grinder-review/)
 - [Sage Dose Control Pro specifications and current UK price](https://www.sageappliances.com/en-gb/product/BCG600)
 - [Sage Dose Control Pro instruction manual](https://www.sageappliances.com/content/dam/sage/uk/en/assets/miscellaneous/instruction-manual/coffee-grinders/BCG600-instruction-manual.pdf)
