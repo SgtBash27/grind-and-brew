@@ -4,6 +4,7 @@ title: "Manual, Semi-Automatic, or Super-Automatic: Which Espresso Machine Actua
 description: "The real difference between espresso machine types isn't price — it's how much of the process you want to control versus how much you want handled for you."
 date: 2026-08-01
 permalink: /guides/manual-vs-automatic-espresso/
+category: Machines
 ---
 
 Most espresso machine buying guides sort machines by price. That's the wrong first filter. The question that actually predicts whether you'll be happy with a machine six months from now is: how much of the process do you want to do yourself, and how much do you want handled automatically?
