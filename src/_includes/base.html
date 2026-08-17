@@ -11,54 +11,45 @@
   <meta property="og:description" content="{{description}}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{canonical}}">
+  <meta name="theme-color" content="#0b0b0b">
   <link rel="stylesheet" href="/static/style.css">
   {{schema}}
 </head>
 <body>
   <header class="site-header">
-    <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
     <div class="header-inner">
-      <a class="brand" href="/">
-        <span class="brand-mark">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <ellipse cx="12" cy="12" rx="8.5" ry="10.5" transform="rotate(-18 12 12)" fill="#fff" fill-opacity="0.92"/>
-            <path d="M12.5 3.2C9.2 7.6 9.4 16.6 12.8 20.8" stroke="#8a5228" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <a class="brand" href="/" aria-label="Grind & Brew home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" role="img">
+            <ellipse cx="16" cy="16" rx="8.5" ry="11.5" transform="rotate(-28 16 16)" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M17.5 5.5c-4.2 5-4.4 15.2-.7 21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
           </svg>
         </span>
-        Grind &amp; Brew
+        <span class="brand-copy"><strong>GRIND &amp; BREW</strong><small>Better espresso at home.</small></span>
       </a>
-      <label for="nav-toggle" class="nav-toggle-label" aria-label="Menu">&#9776;</label>
-      <nav>
-        <a href="/">Guides</a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox" aria-hidden="true">
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Open navigation"><span></span><span></span><span></span></label>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#latest-guides">Guides</a>
+        <a href="/guides/espresso-setup-budget-breakdown/">Gear</a>
+        <a href="/guides/burr-vs-blade-grinders/">Learn</a>
         <a href="/about/">About</a>
-        <a href="/disclosure/">Disclosure</a>
       </nav>
     </div>
   </header>
-  <main>
-    {{content}}
-  </main>
+
+  <main>{{content}}</main>
+
   <footer class="site-footer">
     <div class="trust-inner">
-      <div class="trust-item">
-        <span class="trust-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke="#fff" stroke-width="1.6"/></svg></span>
-        <div><h3>Independent</h3><p>No sponsorships. No agenda.</p></div>
-      </div>
-      <div class="trust-item">
-        <span class="trust-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/></svg></span>
-        <div><h3>Evidence-based</h3><p>Practical advice grounded in the actual mechanism, not vibes.</p></div>
-      </div>
-      <div class="trust-item">
-        <span class="trust-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M12 3v18" stroke="#fff" stroke-width="1.6"/></svg></span>
-        <div><h3>Built for home</h3><p>Real-world advice for real kitchens, not competition rigs.</p></div>
-      </div>
-      <div class="trust-item">
-        <span class="trust-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="#fff" stroke-width="1.6"/></svg></span>
-        <div><h3>Transparent</h3><p>Honest about what works, and what doesn't.</p></div>
-      </div>
+      <div class="trust-item"><span class="trust-icon">◇</span><div><h3>Independent</h3><p>No sponsorships. No agenda.</p></div></div>
+      <div class="trust-item"><span class="trust-icon">✓</span><div><h3>Evidence-based</h3><p>Practical advice grounded in how the gear works.</p></div></div>
+      <div class="trust-item"><span class="trust-icon">⌂</span><div><h3>Built for home</h3><p>Real-world guidance for real kitchens.</p></div></div>
+      <div class="trust-item"><span class="trust-icon">○</span><div><h3>Transparent</h3><p>Clear about how the site is built and funded.</p></div></div>
     </div>
     <div class="footer-note">
-      <p>Grind &amp; Brew is a small, independent site. Some links are affiliate links — see our <a href="/disclosure/">disclosure</a> for how that works. Prices and product availability change; always check the retailer before buying.</p>
+      <div class="footer-brand">GRIND &amp; BREW</div>
+      <p>Some links may be affiliate links — see our <a href="/disclosure/">disclosure</a>. Prices and availability change; always check the retailer before buying.</p>
       <p>&copy; 2026 Grind &amp; Brew.</p>
     </div>
   </footer>
