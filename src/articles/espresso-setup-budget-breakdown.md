@@ -4,6 +4,7 @@ title: "How Much Should You Actually Spend on a Home Espresso Setup?"
 description: "A budget-by-budget breakdown of where your money should go first, and where it's safe to cut corners."
 date: 2026-08-05
 permalink: /guides/espresso-setup-budget-breakdown/
+category: Budget
 ---
 
 The most common mistake in a first espresso setup isn't overspending or underspending overall — it's misallocating a reasonable budget across machine, grinder, and everything else. Here's how to think about the split at different total budgets, and why the ratio matters more than the total.
