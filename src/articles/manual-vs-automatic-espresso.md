@@ -2,7 +2,7 @@
 layout: base.njk
 title: "Manual, Semi-Automatic, or Super-Automatic: Which Espresso Machine Actually Fits You?"
 description: "The real difference between espresso machine types isn't price — it's how much of the process you want to control versus how much you want handled for you."
-date: 2026-08-01
+date: 2026-08-16
 permalink: /guides/manual-vs-automatic-espresso/
 category: Machines
 ---

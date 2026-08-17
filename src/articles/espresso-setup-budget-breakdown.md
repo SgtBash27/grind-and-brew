@@ -2,7 +2,7 @@
 layout: base.njk
 title: "How Much Should You Actually Spend on a Home Espresso Setup?"
 description: "A budget-by-budget breakdown of where your money should go first, and where it's safe to cut corners."
-date: 2026-08-05
+date: 2026-08-16
 permalink: /guides/espresso-setup-budget-breakdown/
 category: Budget
 ---

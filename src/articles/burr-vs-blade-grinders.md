@@ -2,7 +2,7 @@
 layout: base.njk
 title: "Burr vs Blade Grinders: Why Your Grinder Matters More Than Your Espresso Machine"
 description: "If you're choosing between a better machine and a better grinder on a fixed budget, buy the grinder. Here's the actual mechanism behind why."
-date: 2026-08-03
+date: 2026-08-16
 permalink: /guides/burr-vs-blade-grinders/
 category: Grinding
 ---

@@ -7,11 +7,16 @@ dependencies (deliberate — see "Why no framework" below).
 ## What's real vs. what's still a placeholder
 
 **Real and working:**
-- The site itself: 3 genuine, hand-written guides, an about page, and an affiliate
-  disclosure page (legally necessary once affiliate links go live).
+- The site itself: 4 genuine, hand-written guides, an about page, and an affiliate
+  disclosure page (legally necessary once affiliate links go live). The first
+  commercial guide uses reusable product cards, dated prices and direct,
+  non-affiliate manufacturer links.
 - The build script (`build.js`) — converts markdown + frontmatter to static HTML,
   generates `sitemap.xml`, `robots.txt`, per-page canonical tags, Open Graph tags,
   and Article structured data (JSON-LD).
+- Article `date` is the real first-publication date. Add a separate `updated`
+  field only after a substantive review; the page and structured data will then
+  show that verified update date.
 - **Before deploying, set `SITE_URL` to the real domain** — either export it as an
   env var when building (`SITE_URL=https://yourdomain.com node build.js`) or add it
   as an environment variable in your hosting provider's dashboard (Cloudflare
@@ -24,12 +29,10 @@ dependencies (deliberate — see "Why no framework" below).
   result. This is the actual automation loop.
 
 **Still placeholders, on purpose:**
-- Every article has an `AFFILIATE LINK PLACEHOLDER` HTML comment where a specific
-  product recommendation + affiliate link should go. I did not invent product
-  names, models, or prices — those would likely be wrong or stale, and fabricated
-  specifics in an affiliate article are exactly the kind of thing that damages
-  trust and search rankings. Once you have an Amazon Associates (or similar)
-  account, I can fill these in properly using real, current product data.
+- The three educational articles still have `AFFILIATE LINK PLACEHOLDER` comments.
+  The commercial grinder guide now contains researched products and current-price
+  checks using non-affiliate links. Affiliate URLs should only replace those links
+  after approval, without changing the evidence-led ranking.
 - `generate-article.js` references model `claude-sonnet-4-5-20250929` as a
   default — double-check that's the current model slug in the Anthropic docs
   before relying on it long-term; model names get superseded.

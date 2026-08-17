@@ -18,11 +18,11 @@ const SITE_URL = process.env.SITE_URL || "https://grind-and-brew.pages.dev";
 function readFile(p) { return fs.readFileSync(p, "utf8"); }
 
 function parseFrontmatter(raw) {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
   if (!match) return { data: {}, body: raw };
   const [, fm, body] = match;
   const data = {};
-  fm.split("\n").forEach((line) => {
+  fm.split(/\r?\n/).forEach((line) => {
     const m = line.match(/^(\w+):\s*(.*)$/);
     if (m) {
       let value = m[2].trim();
@@ -66,14 +66,22 @@ function slugify(text) { return text.toLowerCase().replace(/[^\w\s-]/g, "").trim
 function wordCount(text) { return text.replace(/[#*_`\[\]()>-]/g, " ").split(/\s+/).filter(Boolean).length; }
 function readingTime(text) { return Math.max(1, Math.round(wordCount(text) / 200)); }
 
+function escapeHtml(value) { return String(value || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function renderProductCard(fields) {
+  const list=(value)=>(value||"").split("|").filter(Boolean).map((item)=>`<li>${escapeHtml(item.trim())}</li>`).join("");
+  return `<aside class="product-card" aria-label="${escapeHtml(fields.name)} recommendation"><p class="product-card__eyebrow">${escapeHtml(fields.badge)}</p><h3>${escapeHtml(fields.name)}</h3><p class="product-card__price">${escapeHtml(fields.price)} <span>when checked ${escapeHtml(fields.checked)}</span></p><p>${escapeHtml(fields.verdict)}</p><div class="product-card__details"><div><strong>Why it stands out</strong><ul>${list(fields.pros)}</ul></div><div><strong>Know before buying</strong><ul>${list(fields.cons)}</ul></div></div><a class="product-card__cta" href="${escapeHtml(fields.url)}" rel="noopener noreferrer">${escapeHtml(fields.cta||"Check current price")}</a><p class="product-card__link-note">Direct, non-affiliate link.</p></aside>\n`;
+}
+
 function renderMarkdown(md, headingsOut) {
   const withoutComments = md.replace(/<!--[\s\S]*?-->/g, "");
   const lines = withoutComments.split("\n");
   let html = "";
   let inList = false;
   function inline(text) { return text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>'); }
-  for (const rawLine of lines) {
+  for (let lineIndex=0; lineIndex<lines.length; lineIndex+=1) {
+    const rawLine=lines[lineIndex];
     const line = rawLine.trim();
+    if (line === ":::product") { if (inList) { html += "</ul>\n"; inList=false; } const fields={}; lineIndex+=1; while (lineIndex<lines.length && lines[lineIndex].trim()!==":::") { const field=lines[lineIndex].match(/^([a-z]+):\s*(.*)$/i); if (field) fields[field[1].toLowerCase()]=field[2].trim(); lineIndex+=1; } html+=renderProductCard(fields); continue; }
     if (line === "") { if (inList) { html += "</ul>\n"; inList = false; } continue; }
     const diagramMarker = line.match(/^\{\{diagram:(.+?)\}\}$/);
     if (diagramMarker) { if (inList) { html += "</ul>\n"; inList = false; } const diagram = DIAGRAMS[diagramMarker[1]]; if (!diagram) throw new Error(`Unknown diagram key: "${diagramMarker[1]}"`); html += diagram + "\n"; continue; }
@@ -91,7 +99,8 @@ function renderMarkdown(md, headingsOut) {
 }
 
 function renderPage(template, vars) { let out = template; for (const [key, value] of Object.entries(vars)) out = out.split(`{{${key}}}`).join(value); return out; }
-function articleSchema({ title, description, permalink, date }) { return JSON.stringify({ "@context":"https://schema.org", "@type":"Article", headline:title, description, url:SITE_URL.replace(/\/$/,"")+permalink, datePublished:date, author:{"@type":"Organization",name:"Grind & Brew"} }); }
+function articleSchema({ title, description, permalink, date, updated }) { const schema={ "@context":"https://schema.org", "@type":"Article", headline:title, description, url:SITE_URL.replace(/\/$/,"")+permalink, datePublished:date, author:{"@type":"Organization",name:"Grind & Brew"} }; if (updated) schema.dateModified=updated; return JSON.stringify(schema); }
+function formatArticleDate(date) { const parsed=new Date(`${date}T12:00:00Z`); if (Number.isNaN(parsed.getTime())) return date; return new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(parsed); }
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
 function writePage(outPath, html) { ensureDir(path.dirname(outPath)); fs.writeFileSync(outPath, html); }
 function copyDir(srcDir, outDir) { ensureDir(outDir); for (const entry of fs.readdirSync(srcDir,{withFileTypes:true})) { const s=path.join(srcDir,entry.name); const o=path.join(outDir,entry.name); if (entry.isDirectory()) copyDir(s,o); else fs.copyFileSync(s,o); } }
@@ -105,6 +114,7 @@ function build() {
 
   for (const article of articles) {
     const category = article.data.category || "Guides";
+    const dateLabel = article.data.updated ? `Updated ${formatArticleDate(article.data.updated)}` : `Published ${formatArticleDate(article.data.date)}`;
     const tocHtml = article.headings.length ? `<aside class="article-toc"><div class="toc-label">On this page</div><ul>${article.headings.map((h)=>`<li><a href="#${h.id}">${h.text}</a></li>`).join("")}</ul></aside>` : "";
     const contentHtml = `
 <div class="article-shell">
@@ -113,7 +123,7 @@ function build() {
     <div class="article-meta"><span class="cat">${category}</span><span>${article.minutes} min read</span></div>
     <h1 class="article-title">${article.data.title}</h1>
     <p class="article-dek">${article.data.description || ""}</p>
-    <div class="byline"><span class="byline-mark">◌</span><strong>By Grind &amp; Brew</strong><span>•</span><span>Updated ${article.data.date}</span></div>
+    <div class="byline"><span class="byline-mark">◌</span><strong>By Grind &amp; Brew</strong><span>•</span><span>${dateLabel}</span></div>
   </header>
   <div class="article-layout">
     <div class="article-main"><img class="article-cover" src="${articleImage(article.data.permalink)}" alt="Espresso and coffee equipment">${article.bodyHtml}</div>
