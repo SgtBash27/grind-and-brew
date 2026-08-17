@@ -4,6 +4,7 @@ title: "Burr vs Blade Grinders: Why Your Grinder Matters More Than Your Espresso
 description: "If you're choosing between a better machine and a better grinder on a fixed budget, buy the grinder. Here's the actual mechanism behind why."
 date: 2026-08-03
 permalink: /guides/burr-vs-blade-grinders/
+category: Grinding
 ---
 
 Ask any experienced home barista what they'd upgrade first on a fixed budget, and almost all of them say the grinder, not the machine. This isn't received wisdom repeated without reason — there's a specific mechanical explanation for it.
@@ -17,6 +18,10 @@ For drip coffee, that inconsistency is forgivable — you're extracting over min
 ## What a burr grinder does differently
 
 A burr grinder crushes beans between two abrasive surfaces (burrs) set a fixed, adjustable distance apart. Because the gap is mechanically fixed rather than random, the particle size comes out far more uniform — which means water extracts each particle at roughly the same rate, which is what makes a shot taste balanced instead of both sour and bitter at once.
+
+{{diagram:burr-vs-blade}}
+
+{{takeaway: Consistent grind size means even extraction, which means better flavor. Focus on your grinder, not just the number on the dial.}}
 
 Burr grinders come in two sub-types worth knowing about:
 
