@@ -70,6 +70,13 @@ const ARTICLE_IMAGE_CAPTIONS = {
   "water-quality-espresso": "Espresso is mostly water, so what comes from the tap is never a minor detail.",
   "best-espresso-grinders-under-200-uk": "Espresso-capable grinders need fine, repeatable adjustment—not merely a fine setting."
 };
+const ARTICLE_IMAGE_ALTS = {
+  "best-espresso-grinders-under-200-uk": "Espresso grinder and freshly ground coffee ready for dialling in",
+  "burr-vs-blade-grinders": "Coffee grinder with freshly ground beans for an espresso comparison",
+  "espresso-setup-budget-breakdown": "Home espresso machine and grinder arranged as a complete setup",
+  "manual-vs-automatic-espresso": "Barista preparing espresso at a manual coffee machine",
+  "water-quality-espresso": "Espresso pouring into a glass, showing the role water plays in the cup",
+};
 // Explicit assignments keep every guide's visual identity stable across builds,
 // regardless of file order or publication date changes.
 const ARTICLE_THEMES = {
@@ -104,6 +111,10 @@ function articleTheme(permalink) {
 function articleImageCaption(permalink) {
   const key = Object.keys(ARTICLE_IMAGE_CAPTIONS).find((k) => permalink.includes(k));
   return key ? ARTICLE_IMAGE_CAPTIONS[key] : "Better home espresso begins with careful, repeatable choices.";
+}
+function articleImageAlt(permalink) {
+  const key = Object.keys(ARTICLE_IMAGE_ALTS).find((k) => permalink.includes(k));
+  return key ? ARTICLE_IMAGE_ALTS[key] : "Home espresso equipment in use";
 }
 function editorialFigure(image, variant) {
   return `<figure class="editorial-figure editorial-figure--${variant}"><img src="${image.src}" alt="${image.alt}" loading="lazy"><figcaption>${image.caption}</figcaption></figure>`;
@@ -190,7 +201,7 @@ function build() {
     <div class="byline"><span class="byline-mark">◌</span><strong>By Grind &amp; Brew</strong><span>•</span><span>${dateLabel}</span></div>
   </header>
   <div class="article-layout">
-    <div class="article-main"><figure class="article-hero-image"><img class="article-cover" src="${articleImage(article.data.permalink)}" alt="Espresso and coffee equipment"><figcaption><span>Field note</span>${articleImageCaption(article.data.permalink)}</figcaption></figure>${article.bodyHtml}</div>
+    <div class="article-main"><figure class="article-hero-image"><div class="article-cover-frame"><img class="article-cover" src="${articleImage(article.data.permalink)}" alt="${articleImageAlt(article.data.permalink)}"><span class="article-cover-index" aria-hidden="true">G&amp;B / ${theme}</span></div><figcaption><span>Field note</span>${articleImageCaption(article.data.permalink)}</figcaption></figure>${article.bodyHtml}</div>
     ${tocHtml}
   </div>
 </div>
@@ -209,7 +220,7 @@ function build() {
   }
 
   const findArticle=(slugPart)=>articles.find((a)=>a.data.permalink.includes(slugPart));
-  const cardItems=articles.map((a)=>{ const category=a.data.category||"Guides"; const datePrefix=a.data.updated?"Reviewed":"Published"; const cardDate=a.data.updated||a.data.date; return `<li class="card"><div class="card-art"><img src="${articleImage(a.data.permalink)}" alt="Coffee equipment and brewing setup" loading="lazy"></div><div class="card-body"><div class="card-cat">${category}</div><a class="card-title" href="${a.data.permalink}">${a.data.title}</a><p>${a.data.description}</p><div class="read-time">${datePrefix} ${formatArticleDate(cardDate)} · ${a.minutes} min read &nbsp;→</div></div></li>`; }).join("\n");
+  const cardItems=articles.map((a,index)=>{ const category=a.data.category||"Guides"; const datePrefix=a.data.updated?"Reviewed":"Published"; const cardDate=a.data.updated||a.data.date; const theme=articleTheme(a.data.permalink); const number=String(index+1).padStart(2,"0"); return `<li class="card card-theme--${theme}"><a class="card-art" href="${a.data.permalink}" aria-label="Read ${escapeHtml(a.data.title)}"><img src="${articleImage(a.data.permalink)}" alt="${articleImageAlt(a.data.permalink)}" loading="lazy"><span class="card-art__wash" aria-hidden="true"></span><span class="card-art__edition">Field guide / ${number}</span><span class="card-art__subject">${category}</span></a><div class="card-body"><div class="card-cat">${category}</div><a class="card-title" href="${a.data.permalink}">${a.data.title}</a><p>${a.data.description}</p><div class="read-time">${datePrefix} ${formatArticleDate(cardDate)} · ${a.minutes} min read &nbsp;→</div></div></li>`; }).join("\n");
   const budgetArticle=findArticle("budget-breakdown"), grindArticle=findArticle("burr-vs-blade"), machineArticle=findArticle("manual-vs-automatic");
   const startHereItems=[
     {icon:"☕",title:"My shots taste sour",text:"Understand why it happens and how to fix it.",link:grindArticle,linkText:"Get help"},
