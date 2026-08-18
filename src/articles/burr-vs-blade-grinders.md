@@ -15,11 +15,15 @@ A blade grinder chops beans with a spinning propeller-style blade. Some pieces b
 
 That matters more for espresso than for slower, more forgiving brew methods. Water passes through an espresso puck quickly and under pressure. Larger pieces tend to extract too little; very fine particles can extract too much. The result can taste sour and bitter in the same cup.
 
+{{image:grinder-workflow}}
+
 {{pullquote: A better machine cannot rescue an uneven grind.}}
 
 ## Why burrs are more consistent
 
 A burr grinder crushes beans between two abrasive surfaces set a fixed distance apart. Beans must pass through that controlled gap, producing a much narrower range of particle sizes. More similar particles extract at more similar rates, making balanced and repeatable shots easier.
+
+{{image:burr-mechanism}}
 
 {{diagram:burr-vs-blade}}
 

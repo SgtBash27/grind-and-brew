@@ -53,7 +53,7 @@ const DIAGRAMS = {
 
 const ARTICLE_IMAGES = {
   "best-espresso-grinders-under-200-uk": "/static/images/guide-grinder-portafilter.jpg",
-  "burr-vs-blade-grinders": "/static/images/guide-coffee-grinder.jpg",
+  "burr-vs-blade-grinders": "/static/images/guide-grinder-hero-v2.png",
   "espresso-setup-budget-breakdown": "/static/images/hero-espresso-setup.jpg",
   "manual-vs-automatic-espresso": "/static/images/guide-espresso-extraction.jpg",
   "water-quality-espresso": "/static/images/guide-water-extraction.jpg",
@@ -81,6 +81,10 @@ const ARTICLE_EDITORIAL_IMAGES = {
   "espresso-setup-budget-breakdown": [EDITORIAL_IMAGE_POOL[2], EDITORIAL_IMAGE_POOL[1]],
   "manual-vs-automatic-espresso": [EDITORIAL_IMAGE_POOL[3], EDITORIAL_IMAGE_POOL[1]],
   "water-quality-espresso": [EDITORIAL_IMAGE_POOL[3], EDITORIAL_IMAGE_POOL[2]],
+};
+const INLINE_ARTICLE_IMAGES = {
+  "grinder-workflow": { src: "/static/images/guide-grinder-workflow-v2.png", alt: "Burr grinder dispensing freshly ground coffee into an espresso portafilter", caption: "The grinder is not a side accessory. It controls the coffee that reaches the espresso machine." },
+  "burr-mechanism": { src: "/static/images/guide-burr-mechanism-v2.png", alt: "Close view inside a coffee grinder showing the metal conical burr mechanism", caption: "Inside a burr grinder, beans pass through a controlled gap between two cutting surfaces." },
 };
 const ARTICLE_IMAGE_CAPTIONS = {
   "burr-vs-blade-grinders": "A consistent grind is the quiet foundation of repeatable espresso.",
@@ -139,6 +143,7 @@ function editorialFigure(image, variant) {
   return `<figure class="editorial-figure editorial-figure--${variant}"><img src="${image.src}" alt="${image.alt}" loading="lazy"><figcaption>${image.caption}</figcaption></figure>`;
 }
 function weaveEditorialImages(html, permalink) {
+  if (permalink.includes("burr-vs-blade-grinders")) return html;
   const key = Object.keys(ARTICLE_EDITORIAL_IMAGES).find((slug) => permalink.includes(slug));
   const images = key ? ARTICLE_EDITORIAL_IMAGES[key] : EDITORIAL_IMAGE_POOL.slice(0, 2);
   let section = 0;
@@ -163,6 +168,8 @@ function renderMarkdown(md, headingsOut) {
     if (line === "") { if (inList) { html += "</ul>\n"; inList = false; } continue; }
     const diagramMarker = line.match(/^\{\{diagram:(.+?)\}\}$/);
     if (diagramMarker) { if (inList) { html += "</ul>\n"; inList = false; } const diagram = DIAGRAMS[diagramMarker[1]]; if (!diagram) throw new Error(`Unknown diagram key: "${diagramMarker[1]}"`); html += diagram + "\n"; continue; }
+    const imageMarker = line.match(/^\{\{image:(.+?)\}\}$/);
+    if (imageMarker) { if (inList) { html += "</ul>\n"; inList = false; } const image = INLINE_ARTICLE_IMAGES[imageMarker[1]]; if (!image) throw new Error(`Unknown image key: "${imageMarker[1]}"`); html += editorialFigure(image, "wide") + "\n"; continue; }
     const takeawayMarker = line.match(/^\{\{takeaway:\s*(.+?)\}\}$/);
     if (takeawayMarker) { if (inList) { html += "</ul>\n"; inList = false; } html += `<div class="callout"><div class="callout-label">Key takeaway</div><p>${inline(takeawayMarker[1])}</p></div>\n`; continue; }
     const pullquoteMarker = line.match(/^\{\{pullquote:\s*(.+?)\}\}$/);

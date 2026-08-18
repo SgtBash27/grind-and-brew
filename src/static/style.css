@@ -127,13 +127,19 @@ main { width: 100%; }
   border-bottom:1px solid var(--article-line);
 }
 
+/* Final responsive guard for the gold-standard layout. The contents rail is
+   hidden on small screens, so its explicit desktop grid track must go too. */
+@media (max-width: 900px) {
+  .gold-article .article-layout { grid-template-columns:minmax(0,1fr); }
+}
+
 @media (max-width: 900px) {
   .gold-hero { grid-template-columns:1fr; }
   .gold-hero__copy { min-height:650px; }
   .gold-hero__media { min-height:540px; }
   .gold-answer { grid-template-columns:130px 1fr; }
   .gold-answer__choice { grid-column:1 / -1; padding:18px 0 0; border-left:0; border-top:1px solid #ddd7cd; }
-  .gold-article .article-layout { margin-left:48px; }
+  .gold-article .article-layout { grid-template-columns:minmax(0,1fr); margin-left:48px; }
 }
 
 @media (max-width: 640px) {
@@ -162,6 +168,10 @@ main { width: 100%; }
   .grind-panels { grid-template-columns:1fr; }
   .grind-panel { padding:28px 24px; }
   .grind-comparison figcaption { padding:18px 24px 22px; }
+}
+
+@media (max-width: 900px) {
+  .gold-article .article-layout { grid-template-columns:minmax(0,1fr); }
 }
 
 /* Gold prototype responsive overrides live last so they win over shared rules. */
@@ -289,6 +299,7 @@ figure.diagram figcaption { color:var(--muted); font-family:Inter,ui-sans-serif,
 .gold-hero__media { position:relative; min-height:720px; margin:0; overflow:hidden; }
 .gold-hero__media::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(13,14,15,.28),transparent 30%),linear-gradient(0deg,rgba(0,0,0,.45),transparent 40%); pointer-events:none; }
 .gold-hero__media img { width:100%; height:100%; object-fit:cover; }
+.gold-hero__media img { object-position:52% center; }
 .gold-hero__media figcaption { position:absolute; z-index:1; left:30px; right:30px; bottom:28px; display:flex; justify-content:space-between; gap:24px; color:#fff; font-family:Georgia,serif; font-size:12px; font-style:italic; }
 .gold-hero__media figcaption span { font-family:Inter,sans-serif; font-size:9px; font-style:normal; font-weight:850; letter-spacing:.1em; text-transform:uppercase; }
 .gold-answer { width:min(1120px,calc(100% - 40px)); margin:-62px auto 0; position:relative; z-index:3; display:grid; grid-template-columns:150px 1fr 230px; gap:42px; align-items:center; padding:32px 38px; background:#fff; border-top:5px solid #c57942; box-shadow:0 18px 50px rgba(0,0,0,.14); }
@@ -305,6 +316,9 @@ figure.diagram figcaption { color:var(--muted); font-family:Inter,ui-sans-serif,
 .gold-article .article-main > p:first-of-type { max-width:55ch; color:#1b1c1d; font-family:Georgia,"Times New Roman",serif; font-size:24px; font-weight:400; line-height:1.5; }
 .gold-article .article-main h2 { margin-top:110px; color:#111; font-family:Inter,sans-serif; font-size:clamp(42px,5vw,64px); }
 .gold-article .article-main h3 { color:#111; font-family:Inter,sans-serif; font-size:25px; }
+.gold-article .editorial-figure--wide { width:calc(100% + 140px); margin:48px 0 68px -70px; }
+.gold-article .editorial-figure--wide img { display:block; aspect-ratio:16/9; object-fit:cover; }
+.gold-article .editorial-figure figcaption { max-width:64ch; color:#6f6a63; border-color:#c9c0b4; font-size:11px; }
 .gold-article .article-main h2::before { color:#a65d32; }
 .gold-article .article-toc { border-color:#171819; }
 .gold-reading-progress { position:absolute; left:0; top:108px; display:flex; flex-direction:column; align-items:center; gap:10px; color:#8a867f; font-size:9px; font-weight:800; }
@@ -450,6 +464,9 @@ figure.diagram figcaption { color:var(--muted); font-family:Inter,ui-sans-serif,
   .gold-article .pullquote { margin:52px 0; padding-left:22px; }
   .gold-article .pullquote p { font-size:34px; }
   .gold-article .callout, .grind-comparison { margin-left:-16px !important; margin-right:-16px !important; }
+  .gold-article .editorial-figure--wide { width:calc(100% + 32px); margin:36px 0 48px -16px; }
+  .gold-article .editorial-figure figcaption { padding-left:16px; padding-right:16px; }
+  .gold-article .article-layout { grid-template-columns:minmax(0,1fr); }
   .gold-article .callout { padding:32px 24px; }
   .gold-article .callout p { font-size:24px; }
   .diagram-heading { padding:32px 24px 24px; }
