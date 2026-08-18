@@ -58,6 +58,16 @@ const ARTICLE_IMAGES = {
   "manual-vs-automatic-espresso": "/static/images/guide-espresso-extraction.jpg",
   "water-quality-espresso": "/static/images/guide-water-extraction.jpg",
 };
+
+// The gold-standard guide uses an editorial, HTML/CSS comparison rather than
+// the compact legacy diagram used by the shared article template.
+DIAGRAMS["burr-vs-blade"] = `<figure class="diagram grind-comparison" aria-labelledby="grind-comparison-title">
+<div class="diagram-heading"><span>Visual guide</span><h3 id="grind-comparison-title">One batch. Two very different results.</h3></div>
+<div class="grind-panels">
+  <section class="grind-panel grind-panel--blade"><div class="grind-panel__top"><span class="grind-number">01</span><div><h4>Blade</h4><p>Chopped at random</p></div></div><div class="particles particles--mixed" aria-label="A mixture of large, medium and tiny coffee particles">● · ◉ • ⬤ · ● ◉ · ⬤ • ● · ◉</div><ul><li>Wide range of sizes</li><li>Changes from batch to batch</li><li><strong>Uneven extraction</strong></li></ul></section>
+  <section class="grind-panel grind-panel--burr"><div class="grind-panel__top"><span class="grind-number">02</span><div><h4>Burr</h4><p>Crushed through a fixed gap</p></div></div><div class="particles particles--even" aria-label="Rows of consistently sized coffee particles">● ● ● ● ●<br>● ● ● ● ●<br>● ● ● ● ●</div><ul><li>Narrower range of sizes</li><li>Repeatable adjustment</li><li><strong>More even extraction</strong></li></ul></section>
+</div><figcaption>The goal is not perfectly identical grounds. It is a controlled, repeatable distribution that lets water move through the coffee more evenly.</figcaption>
+</figure>`;
 const HERO_IMAGE = "/static/images/hero-espresso-setup.jpg";
 const EDITORIAL_IMAGE_POOL = [
   { src: "/static/images/guide-grinder-portafilter.jpg", alt: "Prepared espresso puck and precision coffee tools", caption: "Small changes at the grinder show up clearly in the puck and the cup." },
@@ -155,6 +165,8 @@ function renderMarkdown(md, headingsOut) {
     if (diagramMarker) { if (inList) { html += "</ul>\n"; inList = false; } const diagram = DIAGRAMS[diagramMarker[1]]; if (!diagram) throw new Error(`Unknown diagram key: "${diagramMarker[1]}"`); html += diagram + "\n"; continue; }
     const takeawayMarker = line.match(/^\{\{takeaway:\s*(.+?)\}\}$/);
     if (takeawayMarker) { if (inList) { html += "</ul>\n"; inList = false; } html += `<div class="callout"><div class="callout-label">Key takeaway</div><p>${inline(takeawayMarker[1])}</p></div>\n`; continue; }
+    const pullquoteMarker = line.match(/^\{\{pullquote:\s*(.+?)\}\}$/);
+    if (pullquoteMarker) { if (inList) { html += "</ul>\n"; inList = false; } html += `<blockquote class="pullquote"><p>${inline(pullquoteMarker[1])}</p></blockquote>\n`; continue; }
     const heading = line.match(/^(#{1,3})\s+(.*)$/);
     if (heading) { if (inList) { html += "</ul>\n"; inList = false; } const level = heading[1].length + 1; const text = inline(heading[2]); const id = slugify(heading[2]); if (headingsOut) headingsOut.push({ text: heading[2], id }); html += `<h${level} id="${id}">${text}</h${level}>\n`; continue; }
     const listItem = line.match(/^-\s+(.*)$/);
@@ -198,7 +210,24 @@ function build() {
     const dateLabel = article.data.updated ? `Updated ${formatArticleDate(article.data.updated)}` : `Published ${formatArticleDate(article.data.date)}`;
     const tocHtml = article.headings.length ? `<aside class="article-toc"><div class="toc-label">On this page</div><ul>${article.headings.map((h)=>`<li><a href="#${h.id}">${h.text}</a></li>`).join("")}</ul></aside>` : "";
     const theme = articleTheme(article.data.permalink);
-    const contentHtml = `
+    const isGoldStandard = article.data.permalink.includes("burr-vs-blade-grinders");
+    const contentHtml = isGoldStandard ? `
+<article class="article-page article-theme--${theme} gold-article">
+  <header class="gold-hero">
+    <div class="gold-hero__copy">
+      <div class="breadcrumbs"><a href="/">Home</a> &nbsp;›&nbsp; <a href="/#latest-guides">Guides</a> &nbsp;›&nbsp; ${category}</div>
+      <p class="article-series">The home barista's field guide <span>•</span> UK edition</p>
+      <div class="article-meta"><span class="cat">${category}</span><span>${article.minutes} min read</span></div>
+      <h1 class="article-title">Burr vs blade grinders</h1>
+      <p class="gold-standfirst">The small upgrade that can completely change your espresso.</p>
+      <p class="article-dek">A grinder does more than make coffee smaller. It decides whether every particle extracts together—or fights against the rest of the cup.</p>
+      <div class="byline"><span class="byline-mark">G&amp;B</span><strong>Grind &amp; Brew</strong><span>•</span><span>${dateLabel}</span></div>
+    </div>
+    <figure class="gold-hero__media"><img src="${articleImage(article.data.permalink)}" alt="${articleImageAlt(article.data.permalink)}" fetchpriority="high"><figcaption><span>Field note / 01</span>${articleImageCaption(article.data.permalink)}</figcaption></figure>
+  </header>
+  <div class="gold-answer"><div class="gold-answer__label"><span>60-second answer</span><strong>Start here</strong></div><p><strong>For espresso, buy a burr grinder.</strong> Its fixed grinding gap produces more consistent grounds, helping water extract the coffee evenly. A blade grinder chops at random, making repeatable shots much harder.</p><div class="gold-answer__choice"><span>Blade</span><em>Inconsistent</em><span>Burr</span><em>Recommended</em></div></div>
+  <div class="article-shell gold-shell"><div class="gold-reading-progress" aria-hidden="true"><span>01</span><i></i><span>04</span></div><div class="article-layout"><div class="article-main">${article.bodyHtml}</div>${tocHtml}</div></div>
+</article>` : `
 <article class="article-page article-theme--${theme}">
 <div class="article-shell">
   <div class="breadcrumbs"><a href="/">Home</a> &nbsp;›&nbsp; <a href="/#latest-guides">Guides</a> &nbsp;›&nbsp; ${category}</div>
