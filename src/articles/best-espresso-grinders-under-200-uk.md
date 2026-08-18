@@ -15,6 +15,8 @@ The **Baratza Encore ESP is the best all-rounder**. It is easy to dial in, curre
 
 {{takeaway: Most people should buy the Baratza Encore ESP. It gives you the best balance of espresso control, price and repairability.}}
 
+{{image:burr-mechanism}}
+
 :::product
 badge: Best overall
 name: Baratza Encore ESP
@@ -56,6 +58,8 @@ cta: View at Sage UK
 :::
 
 Why it makes the shortlist: it stores a full bag of beans and grinds straight into your portafilter. That is ideal if you make the same coffee every day. The timer only changes in one-second steps and its 60 settings cover every brew style, so it is less precise for espresso. Buy it for speed and convenience.
+
+{{image:grinder-workflow}}
 
 ## How we reached these picks
 

@@ -346,6 +346,22 @@ figure.diagram figcaption { color:var(--muted); font-family:Inter,ui-sans-serif,
 .grind-panel li { display:flex; padding:6px 0; }
 .grind-panel li::before { content:"✓"; margin-right:12px; }
 .grind-comparison figcaption { padding:18px 42px 22px; color:#aaa7a1 !important; font-size:11px !important; }
+.gold-article.article-theme--cream { background:#f6f0e5; }
+.gold-article.article-theme--stone { background:#e8e6df; }
+.gold-article.article-theme--coffee { background:#c7a47f; }
+.gold-article.article-theme--grey { background:#e3e5e3; }
+.gold-hero .article-title--long { max-width:12ch; font-size:clamp(48px,5.6vw,84px); line-height:.88; }
+.editorial-diagram { margin:56px -70px !important; padding:0 !important; overflow:hidden; border:0 !important; border-radius:0 !important; background:#141516 !important; color:#fff !important; }
+.editorial-diagram .diagram-cards { display:grid; grid-template-columns:repeat(3,1fr); }
+.editorial-diagram .diagram-cards section { min-height:240px; padding:34px 32px; background:#e7dfd2; color:#18191a; border-right:1px solid rgba(0,0,0,.14); }
+.editorial-diagram .diagram-cards section:nth-child(2) { background:#b76537; color:#fff; }
+.editorial-diagram .diagram-cards section:last-child { border-right:0; }
+.editorial-diagram .diagram-cards b { display:block; margin-bottom:34px; font-family:Inter,sans-serif; font-size:12px; letter-spacing:.08em; }
+.editorial-diagram .diagram-cards h4 { margin:0 0 10px; font-family:Inter,sans-serif; font-size:24px; line-height:1; }
+.editorial-diagram .diagram-cards p { margin:0; font-family:Georgia,serif; font-size:15px; line-height:1.5; }
+.editorial-diagram .diagram-axis { display:grid; grid-template-columns:auto 1fr auto; gap:18px; align-items:center; padding:18px 28px; color:#d4d0c9; font-family:Inter,sans-serif; font-size:9px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.editorial-diagram .diagram-axis i { height:1px; background:linear-gradient(90deg,#e5dfd3,#b76537); }
+.editorial-diagram > figcaption { padding:18px 32px 22px; color:#aaa7a1 !important; font-size:11px !important; }
 
 .page-shell { width:min(820px, calc(100% - 40px)); margin:0 auto; padding:54px 0 70px; }
 .page-shell .article-title { max-width:none; margin-bottom:26px; }
@@ -467,6 +483,10 @@ figure.diagram figcaption { color:var(--muted); font-family:Inter,ui-sans-serif,
   .gold-article .editorial-figure--wide { width:calc(100% + 32px); margin:36px 0 48px -16px; }
   .gold-article .editorial-figure figcaption { padding-left:16px; padding-right:16px; }
   .gold-article .article-layout { grid-template-columns:minmax(0,1fr); }
+  .gold-hero .article-title--long { font-size:46px; line-height:.92; }
+  .editorial-diagram { margin-left:-16px !important; margin-right:-16px !important; }
+  .editorial-diagram .diagram-cards { grid-template-columns:1fr; }
+  .editorial-diagram .diagram-cards section { min-height:0; border-right:0; border-bottom:1px solid rgba(0,0,0,.16); }
   .gold-article .callout { padding:32px 24px; }
   .gold-article .callout p { font-size:24px; }
   .diagram-heading { padding:32px 24px 24px; }

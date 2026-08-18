@@ -13,6 +13,8 @@ The most common mistake in a first espresso setup isn't overspending or underspe
 
 A great grinder and a mediocre machine will usually out-perform a great machine and a mediocre grinder. Espresso is unusually sensitive to grind consistency (see our [burr vs blade guide](/guides/burr-vs-blade-grinders/) for the mechanism), so on any fixed budget, the grinder should get a larger share than instinct suggests — as a rough starting rule, aim for something closer to an even split between machine and grinder than the roughly 80/20 split most first-time buyers default to.
 
+{{diagram:budget-split}}
+
 ## Entry tier
 
 At the entry tier, resist the urge to buy the cheapest machine and put everything into looks or extra features. A basic semi-automatic machine paired with an entry burr grinder will make noticeably better espresso than a fancier-looking machine paired with a blade grinder or a cheap "burr" grinder with poor consistency at the fine end. This is also the tier where a manual (lever) machine is worth seriously considering if you enjoy the process — the machine cost drops, freeing up more of the budget for the grinder.
@@ -20,6 +22,8 @@ At the entry tier, resist the urge to buy the cheapest machine and put everythin
 ## Mid tier
 
 This is where machine build quality starts to matter — better temperature stability shot-to-shot, a proper steam wand for milk drinks, and generally more forgiving margins for error while you're still learning technique. It's also worth setting aside a small amount here for accessories that punch above their cost: a decent tamper, a scale accurate to 0.1g (espresso is genuinely a weight-and-time discipline, not a guess-and-taste one), and fresh beans from a roaster with a roast date, not a supermarket bag with no date at all.
+
+{{image:espresso-tools}}
 
 ## Upper-mid and beyond
 

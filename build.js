@@ -52,11 +52,11 @@ const DIAGRAMS = {
 };
 
 const ARTICLE_IMAGES = {
-  "best-espresso-grinders-under-200-uk": "/static/images/guide-grinder-portafilter.jpg",
+  "best-espresso-grinders-under-200-uk": "/static/images/guide-grinder-lineup-v2.png",
   "burr-vs-blade-grinders": "/static/images/guide-grinder-hero-v2.png",
-  "espresso-setup-budget-breakdown": "/static/images/hero-espresso-setup.jpg",
-  "manual-vs-automatic-espresso": "/static/images/guide-espresso-extraction.jpg",
-  "water-quality-espresso": "/static/images/guide-water-extraction.jpg",
+  "espresso-setup-budget-breakdown": "/static/images/guide-setup-budget-v2.png",
+  "manual-vs-automatic-espresso": "/static/images/guide-machine-types-v2.png",
+  "water-quality-espresso": "/static/images/guide-water-filter-v2.png",
 };
 
 // The gold-standard guide uses an editorial, HTML/CSS comparison rather than
@@ -68,6 +68,9 @@ DIAGRAMS["burr-vs-blade"] = `<figure class="diagram grind-comparison" aria-label
   <section class="grind-panel grind-panel--burr"><div class="grind-panel__top"><span class="grind-number">02</span><div><h4>Burr</h4><p>Crushed through a fixed gap</p></div></div><div class="particles particles--even" aria-label="Rows of consistently sized coffee particles">● ● ● ● ●<br>● ● ● ● ●<br>● ● ● ● ●</div><ul><li>Narrower range of sizes</li><li>Repeatable adjustment</li><li><strong>More even extraction</strong></li></ul></section>
 </div><figcaption>The goal is not perfectly identical grounds. It is a controlled, repeatable distribution that lets water move through the coffee more evenly.</figcaption>
 </figure>`;
+DIAGRAMS["budget-split"] = `<figure class="diagram editorial-diagram" aria-labelledby="budget-title"><div class="diagram-heading"><span>Budget map</span><h3 id="budget-title">Give every pound a job.</h3></div><div class="diagram-cards"><section><b>50%</b><h4>Machine</h4><p>Stable temperature, pressure and steam.</p></section><section><b>40%</b><h4>Grinder</h4><p>Fine, repeatable adjustment comes first.</p></section><section><b>10%</b><h4>Essentials</h4><p>Scale, tamper and fresh coffee.</p></section></div><figcaption>A starting point, not a law. Move the split to match milk drinks, manual brewing and accessories you already own.</figcaption></figure>`;
+DIAGRAMS["machine-spectrum"] = `<figure class="diagram editorial-diagram" aria-labelledby="machine-title"><div class="diagram-heading"><span>Control spectrum</span><h3 id="machine-title">How involved do you want to be?</h3></div><div class="diagram-cards"><section><b>01</b><h4>Manual</h4><p>You create pressure and control the flow.</p></section><section><b>02</b><h4>Semi-auto</h4><p>You grind, tamp and stop the shot.</p></section><section><b>03</b><h4>Super-auto</h4><p>The machine handles almost everything.</p></section></div><div class="diagram-axis"><span>More ritual</span><i></i><span>More convenience</span></div></figure>`;
+DIAGRAMS["water-balance"] = `<figure class="diagram editorial-diagram" aria-labelledby="water-title"><div class="diagram-heading"><span>Water balance</span><h3 id="water-title">Too soft. Useful middle. Too hard.</h3></div><div class="diagram-cards"><section><b>&lt;50</b><h4>Too soft</h4><p>Weak extraction and flat, sour cups.</p></section><section class="is-best"><b>50–150</b><h4>Useful range</h4><p>Enough mineral for balanced extraction.</p></section><section><b>&gt;200</b><h4>Too hard</h4><p>Harsh flavour and faster scale buildup.</p></section></div><figcaption>PPM is a practical screening tool, not a complete laboratory analysis. Your machine manual and local water report still matter.</figcaption></figure>`;
 const HERO_IMAGE = "/static/images/hero-espresso-setup.jpg";
 const EDITORIAL_IMAGE_POOL = [
   { src: "/static/images/guide-grinder-portafilter.jpg", alt: "Prepared espresso puck and precision coffee tools", caption: "Small changes at the grinder show up clearly in the puck and the cup." },
@@ -85,20 +88,32 @@ const ARTICLE_EDITORIAL_IMAGES = {
 const INLINE_ARTICLE_IMAGES = {
   "grinder-workflow": { src: "/static/images/guide-grinder-workflow-v2.png", alt: "Burr grinder dispensing freshly ground coffee into an espresso portafilter", caption: "The grinder is not a side accessory. It controls the coffee that reaches the espresso machine." },
   "burr-mechanism": { src: "/static/images/guide-burr-mechanism-v2.png", alt: "Close view inside a coffee grinder showing the metal conical burr mechanism", caption: "Inside a burr grinder, beans pass through a controlled gap between two cutting surfaces." },
+  "espresso-tools": { src: "/static/images/editorial-coffee-tools.jpg", alt: "Precision espresso tools arranged beside a home coffee setup", caption: "A scale and a well-fitting tamper are small purchases that make the whole setup easier to repeat." },
+  "espresso-extraction": { src: "/static/images/guide-espresso-extraction.jpg", alt: "Espresso extracting from a semi-automatic machine", caption: "Semi-automatic machines leave the final decisions in your hands while controlling temperature and pressure." },
+  "milk-workflow": { src: "/static/images/guide-milk-steaming.jpg", alt: "Milk being textured with an espresso machine steam wand", caption: "Convenience is not just about the shot: consider how much of the complete drink you want the machine to handle." },
+  "water-extraction": { src: "/static/images/guide-water-extraction.jpg", alt: "Fresh espresso extracting into a clear glass", caption: "Water chemistry changes what dissolves from the coffee—and therefore what reaches the cup." },
+};
+
+const ARTICLE_EDITORIAL = {
+  "burr-vs-blade-grinders": { title:"Burr vs blade grinders", standfirst:"The small upgrade that can completely change your espresso.", dek:"A grinder does more than make coffee smaller. It decides whether every particle extracts together—or fights against the rest of the cup.", answer:"For espresso, buy a burr grinder. Its fixed grinding gap produces more consistent grounds, helping water extract the coffee evenly. A blade grinder chops at random, making repeatable shots much harder.", labels:["Blade","Inconsistent","Burr","Recommended"] },
+  "best-espresso-grinders-under-200-uk": { title:"The best espresso grinders under £200", standfirst:"Four smart ways to spend less without wrecking the shot.", dek:"Under £200, adjustment and repeatability matter more than screens, timers or a premium-looking shell.", answer:"The Baratza Encore ESP is the best all-rounder for most UK buyers. It combines espresso-focused adjustment with repairable parts and a sensible price.", labels:["Priority","Adjustment","Avoid","Feature overload"] },
+  "espresso-setup-budget-breakdown": { title:"What should a home espresso setup cost?", standfirst:"The split matters more than the total.", dek:"A balanced setup puts the grinder, machine and small essentials to work together—rather than spending everything on the biggest object.", answer:"Start close to a 50/40/10 split: roughly half for the machine, 40% for the grinder and 10% for a scale, tamper and essentials. Adjust around your workflow, not looks.", labels:["Machine","≈ 50%","Grinder","≈ 40%"] },
+  "manual-vs-automatic-espresso": { title:"Manual, semi or super-automatic?", standfirst:"Choose the ritual before you choose the machine.", dek:"The best category is not the most expensive one. It is the one that matches how much control you actually want at 7am.", answer:"Unsure? Start semi-automatic. It gives you meaningful control without making every part of extraction manual, and it leaves room for your technique to improve.", labels:["More ritual","Manual","Less effort","Automatic"] },
+  "water-quality-espresso": { title:"Is your tap water ruining your espresso?", standfirst:"The invisible ingredient doing two jobs at once.", dek:"Water controls both flavour extraction and scale inside the machine. Too little mineral is flat; too much is harsh and damaging.", answer:"Use filtered water as the easy default. Aim for moderate mineral content, avoid distilled water on its own, and descale on a schedule that matches local hardness.", labels:["Too soft","Flat","Too hard","Scale risk"] },
 };
 const ARTICLE_IMAGE_CAPTIONS = {
   "burr-vs-blade-grinders": "A consistent grind is the quiet foundation of repeatable espresso.",
-  "espresso-setup-budget-breakdown": "Spend around the cup: grinder, water and workflow matter as much as the machine.",
-  "manual-vs-automatic-espresso": "The right machine is the one whose daily ritual suits the way you actually make coffee.",
-  "water-quality-espresso": "Espresso is mostly water, so what comes from the tap is never a minor detail.",
-  "best-espresso-grinders-under-200-uk": "Espresso-capable grinders need fine, repeatable adjustment—not merely a fine setting."
+  "espresso-setup-budget-breakdown": "A complete setup is a system: machine, grinder and small tools all earn their place.",
+  "manual-vs-automatic-espresso": "Three machine types, three very different levels of daily involvement.",
+  "water-quality-espresso": "Filtered water protects both flavour and the machine behind it.",
+  "best-espresso-grinders-under-200-uk": "Under £200, workflow and adjustment matter more than cosmetic features."
 };
 const ARTICLE_IMAGE_ALTS = {
-  "best-espresso-grinders-under-200-uk": "Espresso grinder and freshly ground coffee ready for dialling in",
+  "best-espresso-grinders-under-200-uk": "Three distinct home espresso burr grinders arranged for comparison",
   "burr-vs-blade-grinders": "Coffee beans inside a grinder, photographed in close detail",
-  "espresso-setup-budget-breakdown": "Home espresso machine and grinder arranged as a complete setup",
-  "manual-vs-automatic-espresso": "Barista preparing espresso at a manual coffee machine",
-  "water-quality-espresso": "Espresso pouring into a glass, showing the role water plays in the cup",
+  "espresso-setup-budget-breakdown": "Complete home espresso setup with machine, grinder, scale, tamper and portafilter",
+  "manual-vs-automatic-espresso": "Manual lever, semi-automatic and super-automatic espresso machines arranged together",
+  "water-quality-espresso": "Filtered water being poured into a home espresso machine reservoir",
 };
 // Explicit assignments keep every guide's visual identity stable across builds,
 // regardless of file order or publication date changes.
@@ -143,7 +158,7 @@ function editorialFigure(image, variant) {
   return `<figure class="editorial-figure editorial-figure--${variant}"><img src="${image.src}" alt="${image.alt}" loading="lazy"><figcaption>${image.caption}</figcaption></figure>`;
 }
 function weaveEditorialImages(html, permalink) {
-  if (permalink.includes("burr-vs-blade-grinders")) return html;
+  if (Object.keys(ARTICLE_EDITORIAL).some((slug) => permalink.includes(slug))) return html;
   const key = Object.keys(ARTICLE_EDITORIAL_IMAGES).find((slug) => permalink.includes(slug));
   const images = key ? ARTICLE_EDITORIAL_IMAGES[key] : EDITORIAL_IMAGE_POOL.slice(0, 2);
   let section = 0;
@@ -217,23 +232,24 @@ function build() {
     const dateLabel = article.data.updated ? `Updated ${formatArticleDate(article.data.updated)}` : `Published ${formatArticleDate(article.data.date)}`;
     const tocHtml = article.headings.length ? `<aside class="article-toc"><div class="toc-label">On this page</div><ul>${article.headings.map((h)=>`<li><a href="#${h.id}">${h.text}</a></li>`).join("")}</ul></aside>` : "";
     const theme = articleTheme(article.data.permalink);
-    const isGoldStandard = article.data.permalink.includes("burr-vs-blade-grinders");
-    const contentHtml = isGoldStandard ? `
+    const editorialKey = Object.keys(ARTICLE_EDITORIAL).find((slug) => article.data.permalink.includes(slug));
+    const editorial = ARTICLE_EDITORIAL[editorialKey];
+    const contentHtml = editorial ? `
 <article class="article-page article-theme--${theme} gold-article">
   <header class="gold-hero">
     <div class="gold-hero__copy">
       <div class="breadcrumbs"><a href="/">Home</a> &nbsp;›&nbsp; <a href="/#latest-guides">Guides</a> &nbsp;›&nbsp; ${category}</div>
       <p class="article-series">The home barista's field guide <span>•</span> UK edition</p>
       <div class="article-meta"><span class="cat">${category}</span><span>${article.minutes} min read</span></div>
-      <h1 class="article-title">Burr vs blade grinders</h1>
-      <p class="gold-standfirst">The small upgrade that can completely change your espresso.</p>
-      <p class="article-dek">A grinder does more than make coffee smaller. It decides whether every particle extracts together—or fights against the rest of the cup.</p>
+      <h1 class="article-title${editorial.title.length > 28 ? " article-title--long" : ""}">${editorial.title}</h1>
+      <p class="gold-standfirst">${editorial.standfirst}</p>
+      <p class="article-dek">${editorial.dek}</p>
       <div class="byline"><span class="byline-mark">G&amp;B</span><strong>Grind &amp; Brew</strong><span>•</span><span>${dateLabel}</span></div>
     </div>
     <figure class="gold-hero__media"><img src="${articleImage(article.data.permalink)}" alt="${articleImageAlt(article.data.permalink)}" fetchpriority="high"><figcaption><span>Field note / 01</span>${articleImageCaption(article.data.permalink)}</figcaption></figure>
   </header>
-  <div class="gold-answer"><div class="gold-answer__label"><span>60-second answer</span><strong>Start here</strong></div><p><strong>For espresso, buy a burr grinder.</strong> Its fixed grinding gap produces more consistent grounds, helping water extract the coffee evenly. A blade grinder chops at random, making repeatable shots much harder.</p><div class="gold-answer__choice"><span>Blade</span><em>Inconsistent</em><span>Burr</span><em>Recommended</em></div></div>
-  <div class="article-shell gold-shell"><div class="gold-reading-progress" aria-hidden="true"><span>01</span><i></i><span>04</span></div><div class="article-layout"><div class="article-main">${article.bodyHtml}</div>${tocHtml}</div></div>
+  <div class="gold-answer"><div class="gold-answer__label"><span>60-second answer</span><strong>Start here</strong></div><p><strong>${editorial.answer}</strong></p><div class="gold-answer__choice"><span>${editorial.labels[0]}</span><em>${editorial.labels[1]}</em><span>${editorial.labels[2]}</span><em>${editorial.labels[3]}</em></div></div>
+  <div class="article-shell gold-shell"><div class="gold-reading-progress" aria-hidden="true"><span>01</span><i></i><span>${String(Math.max(1,article.headings.length)).padStart(2,"0")}</span></div><div class="article-layout"><div class="article-main">${article.bodyHtml}</div>${tocHtml}</div></div>
 </article>` : `
 <article class="article-page article-theme--${theme}">
 <div class="article-shell">
