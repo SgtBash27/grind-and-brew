@@ -9,4 +9,4 @@ permalink: /disclosure/
 
 Grind & Brew is a small, independent site. Some of the links on this site are affiliate links — if you click one and make a purchase, we may earn a small commission at no extra cost to you. This never affects which products we recommend: our guides are written first, and affiliate links are attached to products we'd already point you toward.
 
-We don't accept payment from brands in exchange for coverage or a favorable review.
+We don't accept payment from brands in exchange for coverage or a favourable review. UK price, availability or affiliate commission may change, but those changes do not alter the evidence-led ranking.

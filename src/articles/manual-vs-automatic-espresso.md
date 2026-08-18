@@ -9,6 +9,8 @@ category: Machines
 
 Most espresso machine buying guides sort machines by price. That's the wrong first filter. The question that actually predicts whether you'll be happy with a machine six months from now is: how much of the process do you want to do yourself, and how much do you want handled automatically?
 
+{{diagram:machine-spectrum}}
+
 ## Manual (lever) machines
 
 You control water flow by pulling a lever or piston yourself, in real time, for every shot. This gives you the most control over extraction of any category — and it demands the most from you. A manual machine rewards someone who wants espresso-making as a hands-on skill, the way some people enjoy manual camera focus or a stick-shift car. It punishes anyone who wants a consistent shot at 7am without thinking about it.
@@ -25,6 +27,8 @@ Good fit if: you want to learn real espresso technique and improve over months, 
 
 Bad fit if: you want to press one button and walk away.
 
+{{image:espresso-extraction}}
+
 ## Super-automatic machines
 
 These grind, dose, tamp, extract, and often steam milk automatically, from whole beans, at the press of a button. You lose fine control over the shot, but you gain genuine convenience — this is the category for someone who wants coffee-shop-adjacent quality on a weekday morning with near-zero attention required. The trade-off shows up in two places: upfront cost (the automation is expensive to build), and a ceiling on quality — a well-dialed-in semi-automatic machine in skilled hands will usually beat a super-automatic's default output, though the gap has narrowed a lot in the last few years.
@@ -32,6 +36,8 @@ These grind, dose, tamp, extract, and often steam milk automatically, from whole
 Good fit if: you want consistent, good-enough espresso with minimal daily effort and can afford the higher upfront cost.
 
 Bad fit if: you're buying an espresso machine partly because you enjoy the ritual — a super-automatic removes most of the ritual along with the effort.
+
+{{image:milk-workflow}}
 
 ## The honest recommendation
 

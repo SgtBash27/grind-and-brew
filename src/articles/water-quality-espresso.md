@@ -5,9 +5,9 @@ description: "Explain how water hardness/mineral content affects extraction and 
 date: 2026-08-17
 permalink: /guides/water-quality-espresso/
 ---
-# Why Your Tap Water Might Be Ruining Your Espresso
-
 You've dialed in your grind, timed your shot, and still your espresso tastes flat or overly bitter. Before you blame your beans or your technique, check what's coming out of your tap. Water makes up roughly 98% of your espresso, and its mineral content directly affects both what ends up in your cup and how long your machine survives.
+
+{{diagram:water-balance}}
 
 ## How Minerals Change Extraction
 
@@ -16,6 +16,8 @@ Espresso extraction is fundamentally a process of dissolving flavor compounds fr
 Too many minerals create the opposite problem. Over-mineralized water extracts aggressively, pulling bitter compounds and astringent tannins that would normally stay in the puck. The result tastes harsh and muddy. Worse, different minerals extract different flavor categories. Magnesium tends to pull fruity, acidic notes while calcium emphasizes body and sweetness. Water dominated by one mineral produces unbalanced espresso.
 
 The sweet spot sits between 50-150 parts per million (PPM) total dissolved solids, with a roughly even split between calcium and magnesium. Most municipal water systems land somewhere in this range, but plenty don't—and that variance explains why the same coffee and technique produces different results in different cities.
+
+{{image:water-extraction}}
 
 ## The Scale Problem
 

@@ -20,7 +20,14 @@ const ARTICLES_DIR = path.join(__dirname, "..", "src", "articles");
 const MODEL = process.env.CONTENT_MODEL || "claude-sonnet-4-5-20250929";
 
 function todayISO() {
-  return new Date().toISOString().slice(0, 10);
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/London",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+  const get = (type) => parts.find((part) => part.type === type).value;
+  return `${get("year")}-${get("month")}-${get("day")}`;
 }
 
 async function main() {
@@ -39,7 +46,9 @@ async function main() {
 
   const systemPrompt = `You write for Grind & Brew, a small home-espresso guide site. House style:
 - Genuine mechanical/practical explanation, not generic listicle filler.
+- Write for a UK audience without forcing shopping language into every paragraph. Use British English and account for UK water, electrical, warranty, price or availability context only where it genuinely changes the advice.
 - No invented statistics, no fake "we tested X products" claims.
+- Never imply Grind & Brew personally handled or bench-tested a product. Clearly attribute any third-party testing discussed.
 - No specific product names, models, or prices — instead include exactly one
   HTML comment placeholder in this exact form at the end:
   <!-- AFFILIATE LINK PLACEHOLDER: [describe what should be linked here] -->
