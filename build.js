@@ -70,6 +70,15 @@ const ARTICLE_IMAGE_CAPTIONS = {
   "water-quality-espresso": "Espresso is mostly water, so what comes from the tap is never a minor detail.",
   "best-espresso-grinders-under-200-uk": "Espresso-capable grinders need fine, repeatable adjustment—not merely a fine setting."
 };
+// Explicit assignments keep every guide's visual identity stable across builds,
+// regardless of file order or publication date changes.
+const ARTICLE_THEMES = {
+  "best-espresso-grinders-under-200-uk": "cream",
+  "burr-vs-blade-grinders": "charcoal",
+  "espresso-setup-budget-breakdown": "stone",
+  "manual-vs-automatic-espresso": "coffee",
+  "water-quality-espresso": "grey",
+};
 function articleImage(permalink) {
   const key = Object.keys(ARTICLE_IMAGES).find((k) => permalink.includes(k));
   return key ? ARTICLE_IMAGES[key] : HERO_IMAGE;
@@ -87,6 +96,10 @@ function renderProductCard(fields) {
   if (!/^https:\/\//.test(fields.url)) throw new Error(`Product card for "${fields.name}" must use an https URL`);
   const list=(value)=>(value||"").split("|").filter(Boolean).map((item)=>`<li>${escapeHtml(item.trim())}</li>`).join("");
   return `<aside class="product-card" aria-label="${escapeHtml(fields.name)} recommendation"><p class="product-card__eyebrow">${escapeHtml(fields.badge)}</p><h3>${escapeHtml(fields.name)}</h3><p class="product-card__price">${escapeHtml(fields.price)} <span>when checked ${escapeHtml(fields.checked)}</span></p><p>${escapeHtml(fields.verdict)}</p><div class="product-card__details"><div><strong>Why it stands out</strong><ul>${list(fields.pros)}</ul></div><div><strong>Know before buying</strong><ul>${list(fields.cons)}</ul></div></div><a class="product-card__cta" href="${escapeHtml(fields.url)}" rel="noopener noreferrer">${escapeHtml(fields.cta||"Check current price")}</a><p class="product-card__link-note">Direct, non-affiliate link.</p></aside>\n`;
+}
+function articleTheme(permalink) {
+  const key = Object.keys(ARTICLE_THEMES).find((slug) => permalink.includes(slug));
+  return key ? ARTICLE_THEMES[key] : "stone";
 }
 function articleImageCaption(permalink) {
   const key = Object.keys(ARTICLE_IMAGE_CAPTIONS).find((k) => permalink.includes(k));
@@ -164,10 +177,13 @@ function build() {
     const category = article.data.category || "Guides";
     const dateLabel = article.data.updated ? `Updated ${formatArticleDate(article.data.updated)}` : `Published ${formatArticleDate(article.data.date)}`;
     const tocHtml = article.headings.length ? `<aside class="article-toc"><div class="toc-label">On this page</div><ul>${article.headings.map((h)=>`<li><a href="#${h.id}">${h.text}</a></li>`).join("")}</ul></aside>` : "";
+    const theme = articleTheme(article.data.permalink);
     const contentHtml = `
+<article class="article-page article-theme--${theme}">
 <div class="article-shell">
   <div class="breadcrumbs"><a href="/">Home</a> &nbsp;›&nbsp; <a href="/#latest-guides">Guides</a> &nbsp;›&nbsp; ${category}</div>
   <header class="article-head">
+    <p class="article-series">The home barista's field guide <span>•</span> Grind &amp; Brew</p>
     <div class="article-meta"><span class="cat">${category}</span><span>${article.minutes} min read</span></div>
     <h1 class="article-title">${article.data.title}</h1>
     <p class="article-dek">${article.data.description || ""}</p>
@@ -177,7 +193,8 @@ function build() {
     <div class="article-main"><figure class="article-hero-image"><img class="article-cover" src="${articleImage(article.data.permalink)}" alt="Espresso and coffee equipment"><figcaption><span>Field note</span>${articleImageCaption(article.data.permalink)}</figcaption></figure>${article.bodyHtml}</div>
     ${tocHtml}
   </div>
-</div>`;
+</div>
+</article>`;
     const canonical = SITE_URL.replace(/\/$/, "") + article.data.permalink;
     const page = renderPage(template,{title:article.data.title,description:article.data.description||"",content:contentHtml,canonical,schema:`<script type="application/ld+json">${articleSchema(article.data)}</script>`});
     const permalink=article.data.permalink.replace(/^\/|\/$/g,""); writePage(path.join(OUT,permalink,"index.html"),page);
