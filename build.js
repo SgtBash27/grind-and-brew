@@ -52,17 +52,26 @@ const DIAGRAMS = {
 };
 
 const ARTICLE_IMAGES = {
-  "burr-vs-blade-grinders": "https://images.unsplash.com/photo-1633276023326-4fae3e8ba556?auto=format&fit=crop&w=1400&q=82",
-  "espresso-setup-budget-breakdown": "https://images.unsplash.com/photo-1774801935503-11e0cc5d8e38?auto=format&fit=crop&w=1400&q=82",
-  "manual-vs-automatic-espresso": "https://images.unsplash.com/photo-1461988091159-192b6df7054f?auto=format&fit=crop&w=1400&q=82",
+  "best-espresso-grinders-under-200-uk": "/static/images/guide-grinder-portafilter.jpg",
+  "burr-vs-blade-grinders": "/static/images/guide-coffee-grinder.jpg",
+  "espresso-setup-budget-breakdown": "/static/images/hero-espresso-setup.jpg",
+  "manual-vs-automatic-espresso": "/static/images/guide-espresso-extraction.jpg",
+  "water-quality-espresso": "/static/images/guide-water-extraction.jpg",
 };
-const HERO_IMAGE = "https://images.unsplash.com/photo-1729018711784-bd8d10d81bba?auto=format&fit=crop&w=1600&q=82";
+const HERO_IMAGE = "/static/images/hero-espresso-setup.jpg";
 const EDITORIAL_IMAGE_POOL = [
-  { src: "https://images.unsplash.com/photo-1633276023326-4fae3e8ba556?auto=format&fit=crop&w=1200&q=84", alt: "Freshly ground coffee in espresso equipment", caption: "Small changes at the grinder show up clearly in the cup." },
-  { src: "https://images.unsplash.com/photo-1461988091159-192b6df7054f?auto=format&fit=crop&w=1200&q=84", alt: "Espresso preparation at a coffee bar", caption: "A repeatable workflow matters more than an elaborate one." },
-  { src: "https://images.unsplash.com/photo-1774801935503-11e0cc5d8e38?auto=format&fit=crop&w=1200&q=84", alt: "Home espresso equipment arranged for brewing", caption: "Build the setup around the coffee you make every day." },
-  { src: "https://images.unsplash.com/photo-1729018711784-bd8d10d81bba?auto=format&fit=crop&w=1200&q=84", alt: "Espresso pouring into a cup", caption: "Taste is the final measurement." }
+  { src: "/static/images/guide-grinder-portafilter.jpg", alt: "Prepared espresso puck and precision coffee tools", caption: "Small changes at the grinder show up clearly in the puck and the cup." },
+  { src: "/static/images/guide-milk-steaming.jpg", alt: "Milk being steamed in a stainless-steel pitcher", caption: "Good milk texture comes from a controlled, repeatable technique." },
+  { src: "/static/images/editorial-coffee-tools.jpg", alt: "Espresso tampers and precision coffee tools", caption: "Choose tools that make the daily workflow more consistent, not merely more elaborate." },
+  { src: "/static/images/guide-water-extraction.jpg", alt: "Espresso extracting from a commercial machine", caption: "Taste is the final measurement." }
 ];
+const ARTICLE_EDITORIAL_IMAGES = {
+  "best-espresso-grinders-under-200-uk": [EDITORIAL_IMAGE_POOL[0], EDITORIAL_IMAGE_POOL[2]],
+  "burr-vs-blade-grinders": [EDITORIAL_IMAGE_POOL[0], EDITORIAL_IMAGE_POOL[2]],
+  "espresso-setup-budget-breakdown": [EDITORIAL_IMAGE_POOL[2], EDITORIAL_IMAGE_POOL[1]],
+  "manual-vs-automatic-espresso": [EDITORIAL_IMAGE_POOL[3], EDITORIAL_IMAGE_POOL[1]],
+  "water-quality-espresso": [EDITORIAL_IMAGE_POOL[3], EDITORIAL_IMAGE_POOL[2]],
+};
 const ARTICLE_IMAGE_CAPTIONS = {
   "burr-vs-blade-grinders": "A consistent grind is the quiet foundation of repeatable espresso.",
   "espresso-setup-budget-breakdown": "Spend around the cup: grinder, water and workflow matter as much as the machine.",
@@ -72,7 +81,7 @@ const ARTICLE_IMAGE_CAPTIONS = {
 };
 const ARTICLE_IMAGE_ALTS = {
   "best-espresso-grinders-under-200-uk": "Espresso grinder and freshly ground coffee ready for dialling in",
-  "burr-vs-blade-grinders": "Coffee grinder with freshly ground beans for an espresso comparison",
+  "burr-vs-blade-grinders": "Coffee beans inside a grinder, photographed in close detail",
   "espresso-setup-budget-breakdown": "Home espresso machine and grinder arranged as a complete setup",
   "manual-vs-automatic-espresso": "Barista preparing espresso at a manual coffee machine",
   "water-quality-espresso": "Espresso pouring into a glass, showing the role water plays in the cup",
@@ -120,8 +129,8 @@ function editorialFigure(image, variant) {
   return `<figure class="editorial-figure editorial-figure--${variant}"><img src="${image.src}" alt="${image.alt}" loading="lazy"><figcaption>${image.caption}</figcaption></figure>`;
 }
 function weaveEditorialImages(html, permalink) {
-  const offset = Math.max(0, Object.keys(ARTICLE_IMAGE_CAPTIONS).findIndex((key) => permalink.includes(key)));
-  const images = [EDITORIAL_IMAGE_POOL[(offset + 1) % EDITORIAL_IMAGE_POOL.length], EDITORIAL_IMAGE_POOL[(offset + 2) % EDITORIAL_IMAGE_POOL.length]];
+  const key = Object.keys(ARTICLE_EDITORIAL_IMAGES).find((slug) => permalink.includes(slug));
+  const images = key ? ARTICLE_EDITORIAL_IMAGES[key] : EDITORIAL_IMAGE_POOL.slice(0, 2);
   let section = 0;
   return html.replace(/(<h3\b[\s\S]*?<\/h3>\s*<p>[\s\S]*?<\/p>)/g, (match) => {
     section += 1;
@@ -230,7 +239,7 @@ function build() {
   ].map((item)=>`<li class="start-item"><div class="start-icon">${item.icon}</div><h3>${item.title}</h3><p>${item.text}</p><a class="start-link" href="${item.link?item.link.data.permalink:"/"}">${item.linkText} →</a></li>`).join("\n");
 
   const indexContent=`
-<div class="hero-shell"><section class="hero"><div class="hero-copy"><p class="kicker">Independent UK home-espresso guides</p><h1>Make better espresso at home.</h1><p class="lede">Clear advice on gear, technique and troubleshooting, with UK prices, availability and everyday kitchen realities taken into account.</p><a class="btn" href="#latest-guides">Explore the guides <span>→</span></a><p class="hero-edition">The home barista's field guide <span>•</span> UK edition</p></div><div class="hero-media"><img src="${HERO_IMAGE}" alt="Espresso pouring into a glass" fetchpriority="high"><span class="hero-caption">The daily ritual, considered.</span></div></section></div>
+<div class="hero-shell"><section class="hero"><div class="hero-copy"><p class="kicker">Independent UK home-espresso guides</p><h1>Make better espresso at home.</h1><p class="lede">Clear advice on gear, technique and troubleshooting, with UK prices, availability and everyday kitchen realities taken into account.</p><a class="btn" href="#latest-guides">Explore the guides <span>→</span></a><p class="hero-edition">The home barista's field guide <span>•</span> UK edition</p></div><div class="hero-media"><img src="${HERO_IMAGE}" alt="Espresso machine and grinder arranged as a home coffee setup" fetchpriority="high"><span class="hero-caption">The daily ritual, considered.</span></div></section></div>
 <section class="uk-context" aria-label="How Grind and Brew helps UK readers"><div><strong>UK buying context</strong><span>Prices in pounds, UK stock and warranties checked where they affect a recommendation.</span></div><div><strong>Evidence, not theatre</strong><span>Manufacturer documents, credible independent testing and owner evidence — never invented hands-on claims.</span></div><div><strong>Advice that travels</strong><span>The brewing principles stay useful wherever you live; the shopping detail is localised for Britain.</span></div></section>
 <section class="section" id="latest-guides"><div class="section-head"><h2>Latest guides</h2><a href="#latest-guides">View all →</a></div><ul class="card-grid">${cardItems}</ul></section>
 <section class="section"><div class="start-here"><h2>New to home espresso? Start here.</h2><ul class="start-grid">${startHereItems}</ul></div></section>
